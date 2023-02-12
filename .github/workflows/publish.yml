@@ -1,0 +1,51 @@
+######
+# Add these secrets in action secrets
+# - PYPI_TOKEN          (api token from pypi.org)
+# - TEST_PYPI_TOKEN     (api token from test.api.org)
+######
+
+name: Publish to PyPI
+
+on:
+  workflow_dispatch:
+    inputs:
+      to_test_pypi:
+        description: Deploy to Test PyPI
+        type: boolean
+  release:
+    types: [prereleased, released]
+
+jobs:
+  build_and_publish:
+    name: Build and Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@main
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade build
+          python -m pip install --upgrade twine
+        
+      - name: Generating distribution archives
+        run: |
+          python -m build
+
+      - name: (Upload to Test PyPI) distribution archives
+        if: inputs.to_test_pypi == true
+        env:
+          PYPI_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
+        run: |
+          python -m twine upload --repository testpypi -u __token__ -p $PYPI_PASSWORD dist/*
+
+      - name: (Upload to PyPI) distribution archives
+        if: inputs.to_test_pypi == false
+        env:
+          PYPI_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: |
+          python -m twine upload -u __token__ -p $PYPI_PASSWORD dist/*

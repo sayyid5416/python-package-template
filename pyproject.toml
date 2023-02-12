@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[project]
+name = "<PROJECT-NAME>"
+version = "<PROJECT-VERSION>"
+authors = [
+  { name="<USER>" },
+]
+description = "<SHORT-DESCRIPTION>"
+readme = "README.md"
+requires-python = ">=<PYTHON-VERSION like 3.10>"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = []
+
+
+[project.urls]
+"Homepage" = "https://github.com/<USER>/<REPOSITORY>"
+"Bug Tracker" = "https://github.com/<USER>/<REPOSITORY>/issues"
