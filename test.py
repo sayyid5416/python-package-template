@@ -1,5 +1,5 @@
 """ This file is just for testing purpose """
-from src.project_name import *
+from src.package_name import *
 
 
 

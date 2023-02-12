@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 
 [project]
-name = "<PROJECT-NAME>"
-version = "<PROJECT-VERSION>"
+name = "<PACKAGE-NAME>"
+version = "<PACKAGE-VERSION>"
 authors = [
   { name="<USER>" },
 ]
